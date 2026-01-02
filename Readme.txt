@@ -52,4 +52,25 @@ spring:
    
    12. To clean up the docker images created, you can use below commands:
    docker rmi docker-java-demo mongo:6
-   
+
+# Docker compose (Optional)
+Docker Compose is a tool that allows you to define and manage multi-container Docker applications using a single YAML file.
+1. Create a docker-compose.yml file in the root of your project with the following content:
+version: '3.8'
+services:
+  mongo-container:
+    image: mongo:6
+    container_name: mongo-container
+    ports:
+      - "27017:27017"
+  spring-boot-container:
+    image: docker-java-demo
+    container_name: spring-boot-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9090"
+    depends_on:
+      - mongo-container
+      

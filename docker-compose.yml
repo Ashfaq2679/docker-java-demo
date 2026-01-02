@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:6
+    container_name: mongo-container
+    ports:
+      - "27017:27017"
+    networks:
+      - my_network	
+    volumes:
+      - mongo_data:/data/db
+    
+  app:
+    build: .
+    container_name: java-app-container
+    ports:
+      - "9090:9090"
+    environment:
+      - MONGO_URI=mongodb://mongo-container:27017/mydatabase
+    networks:
+      - my_network
+    depends_on:
+      - mongo
+
+volumes:
+  mongo_data:
+
+networks:
+  my_network:
+    driver: bridge
