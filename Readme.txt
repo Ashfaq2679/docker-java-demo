@@ -74,3 +74,6 @@ services:
     depends_on:
       - mongo-container
       
+      
+ NOTE: use "docker compose config" command to validate the docker-compose.yml file for any syntax errors before running it.
+       use "docker compose up -d --build" command to build and start the containers defined in the docker-compose.yml file.
